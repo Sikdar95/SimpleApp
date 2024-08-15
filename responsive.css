@@ -1,5 +1,13 @@
 @media (max-width: 575px) {
     #currentMode {
-        font-size: 22px;
+        font-size: 19px;
+    }
+
+    .mode{
+        font-size: 15px;
+    }
+
+    input[type=date]{
+        width: 90px;
     }
 }
