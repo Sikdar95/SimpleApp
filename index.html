@@ -3,6 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none';
+    connect-src 'none';
+    script-src 'self';
+    img-src 'self';
+    style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+    style-src-elem 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+    font-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sikdar's App</title>
     <link rel="icon" type="image/x-icon" href="logo.jpg">
@@ -15,27 +22,25 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
-<body style="background-color: #202225; color: skyblue; width: 350px; margin: 68px auto; text-align: center;">
-    <div style="border: 1px solid wheat; padding: 5% 4% 8% 4%; height: 480px;">
-        <div style="margin-bottom: 25px;">
+<body>
+    <div id="mainContainer">
+        <div id="modeContainer">
             <input id="pwdRad" type="radio" name="mode" value="mode"><label class="mode" for="pwdRad">Password</label>
             <input id="durRad" type="radio" name="mode" value="mode"><label class="mode" for="durRad">Duration</label>
         </div>
         <h2 id="currentMode"></h2>
-        <div style="height: 65px;">
+        <div id="outputContainer">
             <div id="result" class="leftfloat">
             </div>
             <button id="copyBtn" title="Copy Password" class="rightfloat">
                 <i class="fa-sharp fa-regular fa-copy"></i>
             </button>
         </div>
-        <div style="height: 20px;">
-        </div>
-        <div id="userinput" style="font-size: 15px;">
+        <div id="userinput">
         </div>
         <br><br>
     </div>
-    <div style="top: 520px; position: absolute; text-align: center; width: inherit;">
+    <div id="btnContainer">
         <button id="generateBtn"></button>
     </div>
     <script src="app.js"></script>

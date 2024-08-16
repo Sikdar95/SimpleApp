@@ -1,11 +1,32 @@
+body {
+    background-color: #202225;
+    color: skyblue;
+    width: 350px;
+    margin: 68px auto;
+    text-align: center;
+}
+
+#mainContainer {
+    border: 1px solid wheat;
+    padding: 5% 4% 8% 4%;
+    height: 480px;
+}
+
+#modeContainer {
+    margin-bottom: 25px;
+}
+
+#outputContainer {
+    height: 65px;
+    margin-bottom: 35px;
+}
+
 button {
-    margin: 1px;
     font-size: 15px;
     width: 95px;
     height: 30px;
     border-radius: 4px;
-    border: 2px black solid;
-    border-color: white;
+    border: 2px white solid;
     color: white;
     background-color: blue;
     text-align: center;
@@ -53,6 +74,10 @@ button:disabled {
     white-space: normal;
     background-color: #40444b;
     border-radius: 5px;
+}
+
+#userinput {
+    font-size: 15px;
 }
 
 #pwdLength {
@@ -120,4 +145,11 @@ input[type=radio] {
 
 input[type=radio]:checked+.mode {
     color: skyblue;
+}
+
+#btnContainer {
+    top: 520px;
+    position: absolute;
+    text-align: center;
+    width: inherit;
 }
