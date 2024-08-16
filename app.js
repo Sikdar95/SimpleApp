@@ -306,7 +306,6 @@
         };
 
 
-        // radBtns[+(localStorage.getItem('currentMode') ?? 0)].click();
         radBtns[+(localStorage.getItem('currentMode') ?? 0)].checked = true;
         Boolean(+(localStorage.getItem('currentMode') ?? 0)) ? action2() : action1();
 
