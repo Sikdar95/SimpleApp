@@ -116,8 +116,7 @@
         });
 
 
-        radBtns[0].onchange = () => {
-
+        const action1 = () => {
             localStorage.setItem('currentMode', 0);
 
             mainTitle.innerText = `Sikdar's Password Generator`;
@@ -152,12 +151,12 @@
             generateBtn.disabled = !Boolean(document.querySelectorAll('input[type=checkbox]:checked').length);
             generateBtn.click();
             copyBtn.disabled = !Boolean(resBox.innerText.length);
+        }
 
-        };
+        radBtns[0].onchange = action1;
 
 
-        radBtns[1].onchange = () => {
-
+        const action2 = () => {
             localStorage.setItem('currentMode', 1);
 
             mainTitle.innerText = `Sikdar's Duration Calculator`;
@@ -177,8 +176,9 @@
             generateBtn.title = 'Get Duration';
             generateBtn.disabled = !Boolean(d1.value && d2.value);
             generateBtn.click();
+        }
 
-        };
+        radBtns[1].onchange = action2;
 
 
         const generatePassword = (len = 16, lwC = true, upC = true, num = true, sym = true) => {
@@ -306,7 +306,9 @@
         };
 
 
-        radBtns[+(localStorage.getItem('currentMode') ?? 0)].click();
+        // radBtns[+(localStorage.getItem('currentMode') ?? 0)].click();
+        radBtns[+(localStorage.getItem('currentMode') ?? 0)].checked = true;
+        Boolean(+(localStorage.getItem('currentMode') ?? 0)) ? action2() : action1();
 
     };
 
