@@ -21,7 +21,7 @@
     });
 
     const d1 = Object.assign(document.createElement('input'), {
-        id: "firstDate", type: "date", title: "DD-MM-YYYY", value: localStorage.getItem('firstDate') ?? "2017-06-01", style: "height: 30px; border-radius: 5px; margin-left: 6.7%; float: left; cursor: pointer;"
+        id: "firstDate", type: "date", title: "Enter first date", value: localStorage.getItem('firstDate') ?? "2017-06-01", style: "height: 30px; border-radius: 5px; margin-left: 6.7%; float: left; cursor: pointer;"
     });
 
     const s2 = Object.assign(document.createElement('span'), {
@@ -29,7 +29,7 @@
     });
 
     const d2 = Object.assign(document.createElement('input'), {
-        id: "secondDate", type: "date", title: "DD-MM-YYYY", value: localStorage.getItem('secondDate') ?? "2005-03-01", style: "height: 30px; border-radius: 5px; margin-right: 6.7%; float: right; cursor: pointer;"
+        id: "secondDate", type: "date", title: "Enter second date", value: localStorage.getItem('secondDate') ?? "2005-03-01", style: "height: 30px; border-radius: 5px; margin-right: 6.7%; float: right; cursor: pointer;"
     });
 
     const h3 = Object.assign(document.createElement('h3'), {
