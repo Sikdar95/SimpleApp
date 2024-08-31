@@ -38,6 +38,116 @@
     });
 
 
+    const generatePassword = (len = 16, lwC = true, upC = true, num = true, sym = true) => {
+
+        if (len < 8 || len > 50) return 'Password length should be at least 8 & at most 50';
+
+        const lowercase = [97, 122];
+        const uppercase = [65, 90];
+        const numbers = [48, 57];
+        const specialChars = ['#', '$', '%', '&', '+', '@', '!', '^', '*', '~', '?', '_'];
+
+        let decArr = [];
+
+        lwC ? decArr.push('lwC') : 1;
+        upC ? decArr.push('upC') : 1;
+        num ? decArr.push('num') : 1;
+        sym ? decArr.push('sym') : 1;
+
+        const n = decArr.length;
+
+        if (!Boolean(n)) return `Must choose at least one option`;
+
+        const parLen = Math.floor(len / n);
+
+        let passArr = [];
+
+        for (let i = 0; i < parLen; i++) {
+            if (lwC) {
+                let small = Math.floor(Math.random() * (lowercase[1] - lowercase[0] + 1)) + lowercase[0];
+                passArr.push(String.fromCharCode(small));
+            }
+            if (upC) {
+                let big = Math.floor(Math.random() * (uppercase[1] - uppercase[0] + 1)) + uppercase[0];
+                passArr.push(String.fromCharCode(big));
+            }
+            if (num) {
+                let dig = Math.floor(Math.random() * (numbers[1] - numbers[0] + 1)) + numbers[0];
+                passArr.push(String.fromCharCode(dig));
+            }
+            if (sym) {
+                passArr.push(specialChars[Math.floor(Math.random() * specialChars.length)]); //Math.random() will never return 1
+            }
+        }
+
+        if (Boolean(len - passArr.length)) {
+
+            const arbitrator = decArr[Math.floor(Math.random() * decArr.length)]; //Math.random() will never return 1
+
+            while ((len - passArr.length) !== 0) {
+                if (arbitrator === 'lwC') {
+                    let small = Math.floor(Math.random() * (lowercase[1] - lowercase[0] + 1)) + lowercase[0];
+                    passArr.push(String.fromCharCode(small));
+                }
+                else if (arbitrator === 'upC') {
+                    let big = Math.floor(Math.random() * (uppercase[1] - uppercase[0] + 1)) + uppercase[0];
+                    passArr.push(String.fromCharCode(big));
+                }
+                else if (arbitrator === 'num') {
+                    let dig = Math.floor(Math.random() * (numbers[1] - numbers[0] + 1)) + numbers[0];
+                    passArr.push(String.fromCharCode(dig));
+                }
+                else {
+                    passArr.push(specialChars[Math.floor(Math.random() * specialChars.length)]); //Math.random() will never return 1
+                }
+            }
+        }
+
+        let password = '';
+        while (passArr.length) {
+            let randomIdx = Math.floor(Math.random() * passArr.length); //Math.random() will never return 1
+            password += passArr.splice(randomIdx, 1)[0];
+        };
+
+        return password;
+
+    };
+
+
+    const E = new Date(0);
+    const EY = E.getFullYear();
+    const EM = E.getMonth();
+    const ED = E.getDate();
+
+    const getDuration = (a, b) => {
+        if (Boolean(a && b)) {
+            const dt1 = new Date(a).setHours(0, 0, 0, 0);
+            const dt2 = new Date(b).setHours(0, 0, 0, 0);
+            const duration = Math.abs(dt1 - dt2);
+            const diff = new Date(duration);
+            const rr = { years: Math.abs(diff.getFullYear() - EY), months: Math.abs(diff.getMonth() - EM), days: Math.abs(diff.getDate() - ED) };
+            if (rr.years > 0 && rr.months >= 0 && rr.days >= 0) {
+                return `${rr.years.toLocaleString()} years, ${rr.months.toLocaleString()} months and ${rr.days.toLocaleString()} days\nOr ${(rr.years * 12 + rr.months).toLocaleString()} months and ${rr.days.toLocaleString()} days\nOr ${Math.floor(duration / (1000 * 3600 * 24)).toLocaleString()} days`;
+            }
+            else if (rr.years === 0 && rr.months > 0 && rr.days > 0) {
+                return `${rr.months.toLocaleString()} months and ${rr.days.toLocaleString()} days\nOr ${Math.floor(duration / (1000 * 3600 * 24)).toLocaleString()} days`;
+            }
+            else if (rr.years === 0 && rr.months > 0 && rr.days === 0) {
+                return `${rr.months.toLocaleString()} months\nOr ${Math.floor(duration / (1000 * 3600 * 24)).toLocaleString()} days`
+            }
+            else if (rr.years === 0 && rr.months === 0 && rr.days > 0) {
+                return `${rr.days.toLocaleString()} days`;
+            }
+            else {
+                return `${rr.years.toLocaleString()} years, ${rr.months.toLocaleString()} months and ${rr.days.toLocaleString()} days`;
+            }
+        }
+        else {
+            return `Invalid entry`;
+        }
+    };
+
+
     window.onload = () => {
 
         const radBtns = document.querySelectorAll('input[type=radio]');
@@ -179,116 +289,6 @@
         }
 
         radBtns[1].onchange = action2;
-
-
-        const generatePassword = (len = 16, lwC = true, upC = true, num = true, sym = true) => {
-
-            if (len < 8 || len > 50) return 'Password length should be at least 8 & at most 50';
-
-            const lowercase = [97, 122];
-            const uppercase = [65, 90];
-            const numbers = [48, 57];
-            const specialChars = ['#', '$', '%', '&', '+', '@', '!', '^', '*', '~', '?', '_'];
-
-            let decArr = [];
-
-            lwC ? decArr.push('lwC') : 1;
-            upC ? decArr.push('upC') : 1;
-            num ? decArr.push('num') : 1;
-            sym ? decArr.push('sym') : 1;
-
-            const n = decArr.length;
-
-            if (!Boolean(n)) return `Must choose at least one option`;
-
-            const parLen = Math.floor(len / n);
-
-            let passArr = [];
-
-            for (let i = 0; i < parLen; i++) {
-                if (lwC) {
-                    let small = Math.floor(Math.random() * (lowercase[1] - lowercase[0] + 1)) + lowercase[0];
-                    passArr.push(String.fromCharCode(small));
-                }
-                if (upC) {
-                    let big = Math.floor(Math.random() * (uppercase[1] - uppercase[0] + 1)) + uppercase[0];
-                    passArr.push(String.fromCharCode(big));
-                }
-                if (num) {
-                    let dig = Math.floor(Math.random() * (numbers[1] - numbers[0] + 1)) + numbers[0];
-                    passArr.push(String.fromCharCode(dig));
-                }
-                if (sym) {
-                    passArr.push(specialChars[Math.floor(Math.random() * specialChars.length)]); //Math.random() will never return 1
-                }
-            }
-
-            if (Boolean(len - passArr.length)) {
-
-                const arbitrator = decArr[Math.floor(Math.random() * decArr.length)]; //Math.random() will never return 1
-
-                while ((len - passArr.length) !== 0) {
-                    if (arbitrator === 'lwC') {
-                        let small = Math.floor(Math.random() * (lowercase[1] - lowercase[0] + 1)) + lowercase[0];
-                        passArr.push(String.fromCharCode(small));
-                    }
-                    else if (arbitrator === 'upC') {
-                        let big = Math.floor(Math.random() * (uppercase[1] - uppercase[0] + 1)) + uppercase[0];
-                        passArr.push(String.fromCharCode(big));
-                    }
-                    else if (arbitrator === 'num') {
-                        let dig = Math.floor(Math.random() * (numbers[1] - numbers[0] + 1)) + numbers[0];
-                        passArr.push(String.fromCharCode(dig));
-                    }
-                    else {
-                        passArr.push(specialChars[Math.floor(Math.random() * specialChars.length)]); //Math.random() will never return 1
-                    }
-                }
-            }
-
-            let password = '';
-            while (passArr.length) {
-                let randomIdx = Math.floor(Math.random() * passArr.length); //Math.random() will never return 1
-                password += passArr.splice(randomIdx, 1)[0];
-            };
-
-            return password;
-
-        };
-
-
-        const E = new Date(0);
-        const EY = E.getFullYear();
-        const EM = E.getMonth();
-        const ED = E.getDate();
-
-        const getDuration = (a, b) => {
-            if (Boolean(a && b)) {
-                const dt1 = new Date(a).setHours(0, 0, 0, 0);
-                const dt2 = new Date(b).setHours(0, 0, 0, 0);
-                const duration = Math.abs(dt1 - dt2);
-                const diff = new Date(duration);
-                const rr = { years: Math.abs(diff.getFullYear() - EY), months: Math.abs(diff.getMonth() - EM), days: Math.abs(diff.getDate() - ED) };
-                if (rr.years > 0 && rr.months >= 0 && rr.days >= 0) {
-                    return `${rr.years.toLocaleString()} years, ${rr.months.toLocaleString()} months and ${rr.days.toLocaleString()} days\nOr ${(rr.years * 12 + rr.months).toLocaleString()} months and ${rr.days.toLocaleString()} days\nOr ${Math.floor(duration / (1000 * 3600 * 24)).toLocaleString()} days`;
-                }
-                else if (rr.years === 0 && rr.months > 0 && rr.days > 0) {
-                    return `${rr.months.toLocaleString()} months and ${rr.days.toLocaleString()} days\nOr ${Math.floor(duration / (1000 * 3600 * 24)).toLocaleString()} days`;
-                }
-                else if (rr.years === 0 && rr.months > 0 && rr.days === 0) {
-                    return `${rr.months.toLocaleString()} months\nOr ${Math.floor(duration / (1000 * 3600 * 24)).toLocaleString()} days`
-                }
-                else if (rr.years === 0 && rr.months === 0 && rr.days > 0) {
-                    return `${rr.days.toLocaleString()} days`;
-                }
-                else {
-                    return `${rr.years.toLocaleString()} years, ${rr.months.toLocaleString()} months and ${rr.days.toLocaleString()} days`;
-                }
-            }
-            else {
-                return `Invalid entry`;
-            }
-        };
 
 
         generateBtn.onclick = () => {
